@@ -1,10 +1,17 @@
+import { useDispatch } from "react-redux";
 import { CDN_URL } from "../utillity/constant";
+import { addItem } from "../slices/cartSlice";
 
 const ItemList = ({ data }) => {
+  const dispatch = useDispatch();
+  const handleAddClick = (item) => {
+     dispatch(addItem(item));
+  };
   return (
     <div>
       {data.map((item) => (
         <div
+          data-testid="foodItem"
           key={item?.card?.info?.id}
           className="border-gray-200 border-b-2 p-2 m-2 text-left flex justify-between"
         >
@@ -22,7 +29,10 @@ const ItemList = ({ data }) => {
           </div>
           <div className="w-3/12 p-4">
             <div className="absolute  align-bottom">
-              <button className="p-3 mx-11 bg-white shadow-lg text-green-700 rounded-lg font-extrabold font-serif">
+              <button
+                className="p-3 mx-11 bg-white shadow-lg text-green-700 rounded-lg font-extrabold font-serif"
+                onClick={() => handleAddClick(item)}
+              >
                 ADD
               </button>
             </div>
